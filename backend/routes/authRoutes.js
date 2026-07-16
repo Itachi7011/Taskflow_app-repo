@@ -10,6 +10,7 @@ const {
   verifyEmail,
   forgotPassword,
   resetPassword,
+  bootstrapAdmin
 } = require("../controllers/authController");
 const protect = require("../middleware/auth");
 
