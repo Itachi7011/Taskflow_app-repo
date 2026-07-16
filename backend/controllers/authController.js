@@ -199,3 +199,22 @@ exports.resetPassword = async (req, res, next) => {
     next(err);
   }
 };
+
+
+exports.bootstrapAdmin = async (req, res, next) => {
+  try {
+    if (req.headers["x-bootstrap-key"] !== process.env.ADMIN_BOOTSTRAP_KEY) {
+      return res.status(403).json({ status: "error", message: "Forbidden" });
+    }
+    const existingAdmin = await User.findOne({ role: "admin" });
+    if (existingAdmin) {
+      return res.status(403).json({ status: "error", message: "An admin already exists" });
+    }
+    const { name, email, password } = req.body;
+    const admin = new User({ name, email, password, role: "admin", emailVerified: true });
+    await admin.save();
+    res.status(201).json({ status: "success", message: "Admin created", user: admin.getPublicProfile() });
+  } catch (err) {
+    next(err);
+  }
+};

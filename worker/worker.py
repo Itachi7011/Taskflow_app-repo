@@ -14,14 +14,24 @@ Workflow (matches the assignment step by step):
   5. run the operation
   6. save result + logs
   7. flip status to "success" or "failed"
+
+Also runs a tiny background HTTP server (health check only) so this can
+be deployed as a free-tier Render Web Service, which requires binding to
+a port -- Render's free instance type doesn't support the "Background
+Worker" service type. The health server has nothing to do with the
+actual task-processing logic below; it exists purely to satisfy Render's
+port-binding requirement and keep the service pingable by an external
+uptime monitor.
 """
 
 import json
 import os
 import signal
 import sys
+import threading
 import time
 from datetime import datetime, timezone
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
 import redis
 from bson import ObjectId
@@ -54,6 +64,28 @@ def handle_shutdown(signum, frame):
 
 signal.signal(signal.SIGTERM, handle_shutdown)
 signal.signal(signal.SIGINT, handle_shutdown)
+
+
+# ---- health check server (Render free-tier requirement only) ----
+
+class HealthHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"worker alive")
+
+    def log_message(self, format, *args):
+        # silence default per-request logging so it doesn't drown out
+        # the actual task processing logs below
+        pass
+
+
+def start_health_server():
+    port = int(os.getenv("PORT", "10000"))
+    server = HTTPServer(("0.0.0.0", port), HealthHandler)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    print(f"Health check server listening on port {port}")
 
 
 def now():
@@ -116,6 +148,11 @@ def process_task(tasks_collection, task_id):
 
 
 def main():
+    # bind the health-check port FIRST, before touching mongo/redis --
+    # this way Render's deploy check succeeds immediately even if a
+    # database connection is briefly slow on cold start
+    start_health_server()
+
     print(f"Connecting to redis at {REDIS_URL} ...")
     r = redis.from_url(REDIS_URL, decode_responses=True)
 

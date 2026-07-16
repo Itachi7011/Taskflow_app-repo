@@ -1,131 +1,97 @@
 # TaskFlow — Application Repository
 
-TaskFlow is an AI task processing platform: authenticated users submit text
-processing tasks (uppercase, lowercase, reverse, word count), which run
-asynchronously on a Python worker fleet via a Redis queue, backed by MongoDB.
+AI Task Processing Platform built with the MERN stack plus a Python background worker, built as a technical assessment for a MERN Full Stack Developer role.
 
-This repo contains the **application** itself (frontend, backend, worker,
-CI/CD). Kubernetes manifests and the Argo CD Application live in the
-separate **infrastructure repository**.
+Users register, log in, and submit text-processing tasks (uppercase, lowercase, reverse, word count). Tasks are queued in Redis, picked up asynchronously by a Python worker, and results are written back to MongoDB.
+
+This repo contains the application code. Kubernetes manifests and Argo CD configuration live in the separate [infrastructure repository](https://github.com/Itachi7011/Taskflow_infra-repo).
+
+## Architecture
 
 ```
-app-repo/
-├── frontend/     React + Vite dashboard
-├── backend/      Node.js + Express REST API
-├── worker/       Python background worker
-├── docker-compose.yml
-└── .github/workflows/ci-cd.yml
+Browser → nginx (frontend) → Express API (backend) → MongoDB
+                                     │
+                                     ▼
+                              Redis queue (LPUSH)
+                                     │
+                                     ▼
+                          Python worker (BRPOP) → MongoDB
 ```
 
-## Architecture, in one paragraph
+- **Frontend**: React + Vite, served by nginx in production, proxies `/api` to the backend
+- **Backend**: Node.js + Express, JWT auth, bcrypt password hashing, rate limiting, Helmet
+- **Worker**: Python, consumes jobs from a Redis list via `BRPOP`, processes them, writes results back to MongoDB
+- **Database**: MongoDB
+- **Queue**: Redis (plain list — `LPUSH` from Node, `BRPOP` from Python; no external queue library needed since both languages speak the same primitive)
 
-The frontend talks only to the backend API. The backend never processes a
-task itself — it saves the task to MongoDB with status `pending` and pushes
-`{ taskId }` onto a Redis list. Python workers block on that same list with
-`BRPOP`; whichever worker is free picks up the job, flips it to `running`,
-runs the operation, and writes the result/logs/final status straight back to
-MongoDB. The frontend polls the task every few seconds until it reaches a
-terminal state (`success` / `failed`).
+## Tech stack
 
-## Option A — run locally without Docker
+| Component | Technology |
+|---|---|
+| Frontend | React (Vite) |
+| Backend API | Node.js + Express |
+| Background worker | Python |
+| Database | MongoDB |
+| Queue | Redis |
+| Auth | JWT + bcrypt |
+| Containerization | Docker (multi-stage builds, non-root users) |
 
-You'll need Node.js 20+, Python 3.12+, a local MongoDB, and a local Redis
-running.
+## Local setup (Docker Compose)
 
-```bash
-# 1. backend
-cd backend
-cp .env.example .env        # edit MONGODB_URI / REDIS_URL if not using defaults
-npm install
-npm run dev                 # http://localhost:5000
+### Prerequisites
+- Docker + Docker Compose
+- Your user added to the `docker` group (`sudo usermod -aG docker $USER`, then log out/in) so you don't need `sudo` for every command
 
-# 2. worker (separate terminal)
-cd worker
-cp .env.example .env
-python3 -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
-python worker.py
+### 1. Environment variables
+Copy `backend/.env.example` to `backend/.env` and fill in real values for local dev (the example file documents every variable). The values already baked into `docker-compose.yml` are fine for local development as-is.
 
-# 3. frontend (separate terminal)
-cd frontend
-npm install
-npm run dev                  # http://localhost:5173, proxies /api to :5000 via vite.config.js
-```
-
-## Option B — run everything with Docker Compose (recommended)
-
+### 2. Start everything
 ```bash
 docker compose up --build
 ```
+This starts MongoDB, Redis, the backend API, the Python worker, and the frontend (served on nginx). Health checks ensure Mongo/Redis are ready before backend/worker start.
 
-This starts MongoDB, Redis, the backend, one worker, and the frontend
-(served by nginx). Visit **http://localhost:8080**.
+### 3. Bootstrap the first admin account
 
-Want to see the worker actually scale? Run more of them:
+Normal signup requires an `ADMIN_SIGNUP_CODE` to become an admin — by design, so random users can't self-promote. Since there's no admin yet to hand out that code the first time, bootstrap one directly:
 
 ```bash
-docker compose up --build --scale worker=4
+docker compose exec -e ADMIN_EMAIL=you@example.com -e ADMIN_PASSWORD=YourStrongPassword123 taskflow-backend npm run seed:admin
 ```
 
-## Environment variables
+This creates (or promotes, if the account already exists) an admin user directly via the `User` model — bypassing the public `/auth/register` endpoint entirely, so the invite-code security model stays intact. Once you have one admin, that account can issue `ADMIN_SIGNUP_CODE` invites for any future admins through the normal signup flow.
 
-See `backend/.env.example` and `worker/.env.example` for the full list.
-The only one you must change before anything resembling production is
-`JWT_SECRET` (and `ADMIN_SIGNUP_CODE`, which gates who can create an admin
-account through the admin signup page).
+### 4. Open the app
+```
+http://localhost:8080
+```
 
-## Admin access
+## Running lint
 
-There's no public "become an admin" button. The `/admin/signup` page
-requires an **admin invite code** that must match `ADMIN_SIGNUP_CODE` on the
-backend — set your own value and only share it with people who should
-actually get admin access. Regular users clicking the "Admin" links in the
-navbar first see a SweetAlert2 warning before they're allowed anywhere near
-the admin login/signup pages.
+```bash
+cd backend && npm run lint
+cd frontend && npm run lint
+```
 
-## Testing
+## CI/CD
 
-- `backend/__manual_tests__/logic.test.js` — sanity checks for JWT signing
-  and bcrypt hashing (`node __manual_tests__/logic.test.js` from `backend/`)
-- `worker/test_operations.py` / `worker/test_worker.py` — pytest suite for
-  the four text operations and the task processing state machine, using
-  `mongomock` so it runs without a real MongoDB (`pip install -r
-  requirements-dev.txt && pytest` from `worker/`)
-- `npm run lint` in both `frontend/` and `backend/`
+Pushing to `main` triggers a GitHub Actions pipeline (`.github/workflows/ci-cd.yml`) that:
 
-## CI/CD (`.github/workflows/ci-cd.yml`)
+1. **Lints** both backend and frontend
+2. **Builds and pushes** all three Docker images to Docker Hub, tagged with the short commit SHA
+3. **Commits the new image tags** into the infra repository's `k8s/` manifests
 
-On every push to `main`:
+Argo CD (configured in the infra repo, with auto-sync and self-heal enabled) picks up that commit automatically and rolls out the new images — no manual deployment step required after merging to `main`.
 
-1. **Lint** — backend and frontend
-2. **Build & push** — multi-stage Docker images for backend/worker/frontend,
-   tagged with both `latest` and the short commit SHA, pushed to Docker Hub
-3. **Update infra repo** — clones the infrastructure repository and rewrites
-   the image tags in its Kubernetes manifests to the new SHA, then commits
-   and pushes. Argo CD (running in the cluster, watching that repo) picks up
-   the change automatically and syncs it — this is the GitOps hand-off point.
+### Required GitHub Secrets (set on this repo, under Settings → Secrets and variables → Actions)
 
-Required GitHub Actions secrets: `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`,
-`INFRA_REPO_PAT` (a personal access token with push rights to the infra
-repo).
+| Secret | Purpose |
+|---|---|
+| `DOCKERHUB_USERNAME` | Docker Hub account for pushing images |
+| `DOCKERHUB_TOKEN` | Docker Hub access token (Read & Write scope) |
+| `INFRA_REPO_PAT` | GitHub Personal Access Token (classic, `repo` scope) — lets this workflow push commits into the infra repo |
 
-## A note on the frontend build/proxy setup
+## Notes on design decisions
 
-In development, `frontend/vite.config.js` proxies `/api` straight to
-`http://localhost:5000` — the same pattern used across this codebase's other
-projects. In production there's no Netlify involved (this ships as a Docker
-image behind Kubernetes/nginx instead), so the equivalent job is done by
-`frontend/nginx.conf`, which proxies `/api/` to the `taskflow-backend`
-Kubernetes Service. Same idea, different hop.
-
-## Assumptions / notes for the reviewer
-
-- Email sending (verification links, password reset links) falls back to
-  console-logging the link when `SMTP_HOST` isn't configured, so the full
-  auth flow is testable without a real mailbox.
-- The admin panel (dashboard, user list, task list) was not explicitly
-  required by the assignment brief but was added as a small, clearly scoped
-  extra for demonstration.
-- `Contact Us` and `Report Issue` forms currently simulate submission
-  client-side (no backend endpoint was specified for them in the brief) —
-  wiring them to a real endpoint would be a one-file change.
+- **Redis queue has an in-process fallback** (`queues/taskQueue.js`) that processes a task directly in the backend if Redis is unreachable, rather than failing the request outright. In normal operation (local Docker or Kubernetes, both self-hosting Redis) this fallback never triggers — Redis connects on startup and stays connected. It exists purely as resilience against a transient Redis outage, not as the primary processing path.
+- **Email verification** falls back to printing the verification link to the console when SMTP isn't configured, rather than failing signup — useful for local/demo environments without real SMTP credentials.
