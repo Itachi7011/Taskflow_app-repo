@@ -1,0 +1,71 @@
+/* adminDashboard.css - scoped to .taskflow-admindash-* */
+
+.taskflow-admindash h1 {
+  margin: 0 0 6px;
+  color: var(--tf-text);
+  font-size: 1.4rem;
+}
+
+.taskflow-admindash-subtitle {
+  margin: 0 0 26px;
+  color: var(--tf-text-muted);
+  font-size: 0.9rem;
+}
+
+.taskflow-admindash-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.taskflow-admindash-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-lg);
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow var(--tf-transition);
+}
+
+.taskflow-admindash-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--tf-shadow-md);
+}
+
+.taskflow-admindash-card-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--tf-radius-md);
+  background: var(--tf-surface-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.taskflow-admindash-card-value {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--tf-text);
+}
+
+.taskflow-admindash-card-label {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--tf-text-muted);
+}
+
+@media (max-width: 800px) {
+  .taskflow-admindash-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .taskflow-admindash-grid {
+    grid-template-columns: 1fr;
+  }
+}

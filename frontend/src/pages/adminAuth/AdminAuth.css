@@ -1,0 +1,204 @@
+/* AdminAuth.css - scoped to .taskflow-adminauth-* , shared by all 4 user auth pages */
+
+.taskflow-adminauth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background:
+    radial-gradient(circle at 20% 25%, rgba(217, 119, 6, 0.14), transparent 42%),
+    radial-gradient(circle at 80% 75%, rgba(15, 23, 42, 0.5), transparent 42%),
+    #0b0f1a;
+}
+
+.taskflow-adminauth-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tf-warning);
+  background: rgba(217, 119, 6, 0.12);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  border-radius: 999px;
+  padding: 5px 12px;
+  width: fit-content;
+  margin: 0 auto 16px;
+}
+
+.taskflow-adminauth-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-lg);
+  box-shadow: var(--tf-shadow-lg);
+  padding: 36px 32px;
+}
+
+.taskflow-adminauth-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--tf-primary);
+  margin-bottom: 6px;
+}
+
+.taskflow-adminauth-title {
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 6px 0 4px;
+  color: var(--tf-text);
+}
+
+.taskflow-adminauth-subtitle {
+  text-align: center;
+  font-size: 0.87rem;
+  color: var(--tf-text-muted);
+  margin: 0 0 26px;
+}
+
+.taskflow-adminauth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.taskflow-adminauth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.taskflow-adminauth-field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--tf-text);
+}
+
+.taskflow-adminauth-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-sm);
+  padding: 10px 12px;
+  background: var(--tf-surface-alt);
+  transition: border-color var(--tf-transition), box-shadow var(--tf-transition);
+}
+
+.taskflow-adminauth-input-wrap:focus-within {
+  border-color: var(--tf-primary);
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.15);
+}
+
+.taskflow-adminauth-input-wrap svg {
+  color: var(--tf-text-muted);
+  flex-shrink: 0;
+}
+
+.taskflow-adminauth-input-wrap input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--tf-text);
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.taskflow-adminauth-eye-btn {
+  border: none;
+  background: transparent;
+  color: var(--tf-text-muted);
+  display: flex;
+}
+
+.taskflow-adminauth-submit {
+  margin-top: 6px;
+  border: none;
+  border-radius: var(--tf-radius-sm);
+  padding: 12px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: #fff;
+  background: linear-gradient(135deg, #1e293b, var(--tf-warning));
+  transition: transform 0.15s ease, box-shadow var(--tf-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.taskflow-adminauth-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--tf-shadow-md);
+}
+
+.taskflow-adminauth-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.taskflow-adminauth-links-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  margin-top: 4px;
+}
+
+.taskflow-adminauth-links-row a {
+  color: var(--tf-primary);
+  font-weight: 500;
+}
+
+.taskflow-adminauth-links-row a:hover {
+  text-decoration: underline;
+}
+
+.taskflow-adminauth-footer-text {
+  text-align: center;
+  font-size: 0.86rem;
+  color: var(--tf-text-muted);
+  margin-top: 22px;
+}
+
+.taskflow-adminauth-footer-text a {
+  color: var(--tf-primary);
+  font-weight: 600;
+}
+
+.taskflow-adminauth-status-box {
+  text-align: center;
+  padding: 20px 10px;
+}
+
+.taskflow-adminauth-status-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 480px) {
+  .taskflow-adminauth-card {
+    padding: 28px 20px;
+  }
+}
+
+.taskflow-spin {
+  animation: taskflow-spin-anim 1s linear infinite;
+}
+
+@keyframes taskflow-spin-anim {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

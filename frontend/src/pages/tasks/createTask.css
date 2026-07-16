@@ -1,0 +1,137 @@
+/* createTask.css - scoped to .taskflow-createtask-* */
+
+.taskflow-createtask {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.taskflow-createtask h1 {
+  margin: 0 0 6px;
+  color: var(--tf-text);
+  font-size: 1.4rem;
+}
+
+.taskflow-createtask-subtitle {
+  margin: 0 0 28px;
+  color: var(--tf-text-muted);
+  font-size: 0.9rem;
+}
+
+.taskflow-createtask-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-lg);
+  padding: 28px;
+}
+
+.taskflow-createtask-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.taskflow-createtask-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--tf-text);
+}
+
+.taskflow-createtask-field input,
+.taskflow-createtask-field textarea {
+  border: 1px solid var(--tf-border);
+  background: var(--tf-surface-alt);
+  border-radius: var(--tf-radius-sm);
+  padding: 11px 14px;
+  color: var(--tf-text);
+  font-size: 0.9rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color var(--tf-transition), box-shadow var(--tf-transition);
+}
+
+.taskflow-createtask-field input:focus,
+.taskflow-createtask-field textarea:focus {
+  outline: none;
+  border-color: var(--tf-primary);
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.15);
+}
+
+.taskflow-createtask-ops-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.taskflow-createtask-op-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 14px;
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-md);
+  background: var(--tf-surface-alt);
+  color: var(--tf-text);
+  text-align: left;
+  transition: border-color var(--tf-transition), transform 0.15s ease;
+}
+
+.taskflow-createtask-op-card svg {
+  color: var(--tf-primary);
+  margin-bottom: 2px;
+}
+
+.taskflow-createtask-op-card span {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.taskflow-createtask-op-card small {
+  color: var(--tf-text-muted);
+  font-size: 0.76rem;
+}
+
+.taskflow-createtask-op-card:hover {
+  transform: translateY(-2px);
+}
+
+.taskflow-createtask-op-active {
+  border-color: var(--tf-primary);
+  box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.2);
+}
+
+.taskflow-createtask-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: var(--tf-radius-sm);
+  padding: 13px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--tf-primary), var(--tf-accent));
+  transition: transform 0.15s ease, box-shadow var(--tf-transition);
+}
+
+.taskflow-createtask-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--tf-shadow-md);
+}
+
+.taskflow-createtask-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 500px) {
+  .taskflow-createtask-ops-grid {
+    grid-template-columns: 1fr;
+  }
+}

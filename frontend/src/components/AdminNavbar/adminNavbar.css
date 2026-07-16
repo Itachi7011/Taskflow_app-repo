@@ -1,0 +1,192 @@
+/* adminNavbar.css - scoped to .taskflow-admin-navbar-* */
+
+.taskflow-admin-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--tf-admin-navbar-height);
+  background: var(--tf-surface);
+  border-bottom: 1px solid var(--tf-border);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 20px;
+  z-index: 110;
+  box-shadow: var(--tf-shadow-sm);
+}
+
+.taskflow-admin-navbar-collapse-btn {
+  border: none;
+  background: var(--tf-surface-alt);
+  color: var(--tf-text-muted);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--tf-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, color var(--tf-transition);
+}
+
+.taskflow-admin-navbar-collapse-btn:hover {
+  color: var(--tf-primary);
+  transform: perspective(200px) rotateY(10deg);
+}
+
+.taskflow-admin-navbar-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--tf-surface-alt);
+  border: 1px solid var(--tf-border);
+  border-radius: 999px;
+  padding: 8px 16px;
+  flex: 1;
+  max-width: 380px;
+  color: var(--tf-text-muted);
+  transition: border-color var(--tf-transition), box-shadow var(--tf-transition);
+}
+
+.taskflow-admin-navbar-search:focus-within {
+  border-color: var(--tf-primary);
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.15);
+}
+
+.taskflow-admin-navbar-search input {
+  border: none;
+  background: transparent;
+  outline: none;
+  color: var(--tf-text);
+  width: 100%;
+  font-size: 0.87rem;
+}
+
+.taskflow-admin-navbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.taskflow-admin-navbar-icon-btn {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: var(--tf-surface-alt);
+  color: var(--tf-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, color var(--tf-transition);
+}
+
+.taskflow-admin-navbar-icon-btn:hover {
+  color: var(--tf-primary);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.taskflow-admin-navbar-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: var(--tf-danger);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+}
+
+.taskflow-admin-navbar-profile {
+  position: relative;
+}
+
+.taskflow-admin-navbar-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--tf-border);
+  background: var(--tf-surface-alt);
+  border-radius: 999px;
+  padding: 5px 12px 5px 5px;
+  color: var(--tf-text);
+  transition: box-shadow var(--tf-transition);
+}
+
+.taskflow-admin-navbar-profile-btn:hover {
+  box-shadow: var(--tf-shadow-sm);
+}
+
+.taskflow-admin-navbar-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--tf-primary), var(--tf-accent));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.taskflow-admin-navbar-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.taskflow-admin-navbar-profile-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-md);
+  box-shadow: var(--tf-shadow-md);
+  padding: 8px;
+  min-width: 190px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: taskflow-dropdown-fade 0.16s ease;
+}
+
+.taskflow-admin-navbar-profile-menu button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  padding: 9px 10px;
+  border-radius: var(--tf-radius-sm);
+  color: var(--tf-text);
+  font-size: 0.87rem;
+  text-align: left;
+  transition: background var(--tf-transition), color var(--tf-transition);
+}
+
+.taskflow-admin-navbar-profile-menu button:hover {
+  background: var(--tf-surface-alt);
+  color: var(--tf-primary);
+}
+
+.taskflow-admin-navbar-logout {
+  color: var(--tf-danger) !important;
+}
+
+@media (max-width: 700px) {
+  .taskflow-admin-navbar-search {
+    display: none;
+  }
+  .taskflow-admin-navbar-name {
+    display: none;
+  }
+}

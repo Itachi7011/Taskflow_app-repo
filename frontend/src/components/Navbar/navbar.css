@@ -1,0 +1,209 @@
+/* navbar.css - scoped to .taskflow-navbar-* only, shouldnt clash with
+   anything else on the site */
+
+.taskflow-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--tf-surface);
+  border-bottom: 1px solid var(--tf-border);
+  backdrop-filter: blur(10px);
+  transition: background-color var(--tf-transition), border-color var(--tf-transition);
+}
+
+.taskflow-navbar-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.taskflow-navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--tf-primary);
+}
+
+.taskflow-navbar-logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--tf-radius-md);
+  background: linear-gradient(135deg, var(--tf-primary), var(--tf-accent));
+  color: #fff;
+  box-shadow: var(--tf-shadow-sm);
+}
+
+.taskflow-navbar-logo-text {
+  background: linear-gradient(90deg, var(--tf-primary), var(--tf-accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.taskflow-navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.taskflow-navbar-link {
+  padding: 8px 14px;
+  border-radius: var(--tf-radius-sm);
+  color: var(--tf-text-muted);
+  font-weight: 500;
+  transition: background var(--tf-transition), color var(--tf-transition);
+}
+
+.taskflow-navbar-link:hover {
+  background: var(--tf-surface-alt);
+  color: var(--tf-primary);
+}
+
+.taskflow-navbar-dropdown {
+  position: relative;
+}
+
+.taskflow-navbar-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  border: none;
+  background: transparent;
+  color: var(--tf-text-muted);
+  font-weight: 500;
+  border-radius: var(--tf-radius-sm);
+  transition: background var(--tf-transition), color var(--tf-transition);
+}
+
+.taskflow-navbar-dropdown-trigger:hover {
+  background: var(--tf-surface-alt);
+  color: var(--tf-primary);
+}
+
+.taskflow-chevron-open {
+  transform: rotate(180deg);
+  transition: transform var(--tf-transition);
+}
+
+.taskflow-navbar-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0px);
+  left: 0;
+  min-width: 200px;
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-md);
+  box-shadow: var(--tf-shadow-md);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: taskflow-dropdown-fade 0.16s ease;
+}
+
+@keyframes taskflow-dropdown-fade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.taskflow-navbar-dropdown-menu a,
+.taskflow-navbar-dropdown-menu button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: var(--tf-radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--tf-text);
+  font-size: 0.92rem;
+  text-align: left;
+  width: 100%;
+  transition: background var(--tf-transition), color var(--tf-transition), transform 0.15s ease;
+}
+
+.taskflow-navbar-dropdown-menu a:hover,
+.taskflow-navbar-dropdown-menu button:hover {
+  background: var(--tf-surface-alt);
+  color: var(--tf-primary);
+  transform: translateX(2px);
+}
+
+.taskflow-navbar-dropdown-logout {
+  color: var(--tf-danger) !important;
+}
+
+.taskflow-navbar-theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--tf-border);
+  background: var(--tf-surface-alt);
+  color: var(--tf-text);
+  margin-left: 6px;
+  transition: transform var(--tf-transition), background var(--tf-transition);
+}
+
+.taskflow-navbar-theme-toggle:hover {
+  transform: rotate(20deg) scale(1.08);
+}
+
+.taskflow-navbar-mobile-toggle {
+  display: none;
+  border: none;
+  background: transparent;
+  color: var(--tf-text);
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .taskflow-navbar-mobile-toggle {
+    display: flex;
+  }
+
+  .taskflow-navbar-links {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--tf-surface);
+    border-bottom: 1px solid var(--tf-border);
+    padding: 12px;
+    transform: translateY(-130%);
+    opacity: 0;
+    transition: transform var(--tf-transition), opacity var(--tf-transition);
+  }
+
+  .taskflow-navbar-links-open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .taskflow-navbar-dropdown-menu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    padding-left: 12px;
+  }
+}

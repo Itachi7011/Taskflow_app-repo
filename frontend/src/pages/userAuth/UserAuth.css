@@ -1,0 +1,186 @@
+/* UserAuth.css - scoped to .taskflow-userauth-* , shared by all 4 user auth pages */
+
+.taskflow-userauth-wrapper {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(109, 40, 217, 0.12), transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(6, 182, 212, 0.12), transparent 40%),
+    var(--tf-bg);
+}
+
+.taskflow-userauth-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-lg);
+  box-shadow: var(--tf-shadow-lg);
+  padding: 36px 32px;
+}
+
+.taskflow-userauth-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--tf-primary);
+  margin-bottom: 6px;
+}
+
+.taskflow-userauth-title {
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 6px 0 4px;
+  color: var(--tf-text);
+}
+
+.taskflow-userauth-subtitle {
+  text-align: center;
+  font-size: 0.87rem;
+  color: var(--tf-text-muted);
+  margin: 0 0 26px;
+}
+
+.taskflow-userauth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.taskflow-userauth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.taskflow-userauth-field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--tf-text);
+}
+
+.taskflow-userauth-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-sm);
+  padding: 10px 12px;
+  background: var(--tf-surface-alt);
+  transition: border-color var(--tf-transition), box-shadow var(--tf-transition);
+}
+
+.taskflow-userauth-input-wrap:focus-within {
+  border-color: var(--tf-primary);
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.15);
+}
+
+.taskflow-userauth-input-wrap svg {
+  color: var(--tf-text-muted);
+  flex-shrink: 0;
+}
+
+.taskflow-userauth-input-wrap input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--tf-text);
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.taskflow-userauth-eye-btn {
+  border: none;
+  background: transparent;
+  color: var(--tf-text-muted);
+  display: flex;
+}
+
+.taskflow-userauth-submit {
+  margin-top: 6px;
+  border: none;
+  border-radius: var(--tf-radius-sm);
+  padding: 12px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--tf-primary), var(--tf-accent));
+  transition: transform 0.15s ease, box-shadow var(--tf-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.taskflow-userauth-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--tf-shadow-md);
+}
+
+.taskflow-userauth-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.taskflow-userauth-links-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  margin-top: 4px;
+}
+
+.taskflow-userauth-links-row a {
+  color: var(--tf-primary);
+  font-weight: 500;
+}
+
+.taskflow-userauth-links-row a:hover {
+  text-decoration: underline;
+}
+
+.taskflow-userauth-footer-text {
+  text-align: center;
+  font-size: 0.86rem;
+  color: var(--tf-text-muted);
+  margin-top: 22px;
+}
+
+.taskflow-userauth-footer-text a {
+  color: var(--tf-primary);
+  font-weight: 600;
+}
+
+.taskflow-userauth-status-box {
+  text-align: center;
+  padding: 20px 10px;
+}
+
+.taskflow-userauth-status-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 480px) {
+  .taskflow-userauth-card {
+    padding: 28px 20px;
+  }
+}
+
+.taskflow-spin {
+  animation: taskflow-spin-anim 1s linear infinite;
+}
+
+@keyframes taskflow-spin-anim {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

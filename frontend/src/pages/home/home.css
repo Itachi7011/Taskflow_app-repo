@@ -1,0 +1,202 @@
+/* home.css - scoped to .taskflow-home-* */
+
+.taskflow-home-hero {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 90px 24px 60px;
+  text-align: center;
+}
+
+.taskflow-home-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--tf-surface-alt);
+  border: 1px solid var(--tf-border);
+  color: var(--tf-primary);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 22px;
+}
+
+.taskflow-home-hero h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+  margin: 0 0 18px;
+  color: var(--tf-text);
+}
+
+.taskflow-home-hero h1 span {
+  background: linear-gradient(90deg, var(--tf-primary), var(--tf-accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.taskflow-home-hero p {
+  color: var(--tf-text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 0 32px;
+}
+
+.taskflow-home-hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.taskflow-home-btn-primary,
+.taskflow-home-btn-secondary {
+  padding: 13px 26px;
+  border-radius: var(--tf-radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.15s ease, box-shadow var(--tf-transition);
+}
+
+.taskflow-home-btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--tf-primary), var(--tf-accent));
+}
+
+.taskflow-home-btn-secondary {
+  color: var(--tf-text);
+  background: var(--tf-surface-alt);
+  border: 1px solid var(--tf-border);
+}
+
+.taskflow-home-btn-primary:hover,
+.taskflow-home-btn-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--tf-shadow-md);
+}
+
+.taskflow-home-features {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 24px 70px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.taskflow-home-feature-card {
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-lg);
+  padding: 24px 20px;
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow var(--tf-transition);
+}
+
+.taskflow-home-feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--tf-shadow-md);
+}
+
+.taskflow-home-feature-card svg {
+  color: var(--tf-primary);
+  margin-bottom: 12px;
+}
+
+.taskflow-home-feature-card h3 {
+  margin: 0 0 8px;
+  color: var(--tf-text);
+}
+
+.taskflow-home-feature-card p {
+  margin: 0;
+  color: var(--tf-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.taskflow-home-how {
+  background: var(--tf-surface-alt);
+  padding: 60px 24px;
+}
+
+.taskflow-home-how h2 {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  color: var(--tf-text);
+}
+
+.taskflow-home-how-steps {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.taskflow-home-how-step {
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-md);
+  padding: 22px 18px;
+}
+
+.taskflow-home-how-step span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--tf-primary), var(--tf-accent));
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.taskflow-home-how-step p {
+  margin: 0;
+  color: var(--tf-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.taskflow-home-trust {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 50px 24px 90px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+}
+
+.taskflow-home-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--tf-text-muted);
+  font-size: 0.9rem;
+}
+
+.taskflow-home-trust-item svg {
+  color: var(--tf-accent);
+}
+
+@media (max-width: 900px) {
+  .taskflow-home-features,
+  .taskflow-home-how-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .taskflow-home-features,
+  .taskflow-home-how-steps {
+    grid-template-columns: 1fr;
+  }
+}

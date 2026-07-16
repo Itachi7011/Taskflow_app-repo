@@ -1,0 +1,99 @@
+# docker-compost.yml
+# version: "3.9"
+
+# quick note for local dev: this brings up everything you need to run
+# TaskFlow end to end on your own machine. run `docker compose up --build`
+# then hit http://localhost:8080
+#
+# service names below match the Kubernetes Service names 1:1
+# (taskflow-mongo, taskflow-redis, taskflow-backend...) on purpose - the
+# same nginx.conf that proxies /api in the frontend container gets used
+# both here and in k8s, so the hostnames it points at need to resolve in
+# both places without editing anything.
+
+services:
+  taskflow-mongo:
+    image: mongo:7
+    container_name: taskflow-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  taskflow-redis:
+    image: redis:7-alpine
+    container_name: taskflow-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  taskflow-backend:
+    build:
+      context: ./backend
+    container_name: taskflow-backend
+    restart: unless-stopped
+    ports:
+      - "5001:5000"
+    environment:
+      APP_NAME: TaskFlow
+      PORT: 5000
+      NODE_ENV: development
+      MONGODB_URI: mongodb://taskflow-mongo:27017/taskflow
+      REDIS_URL: redis://taskflow-redis:6379
+      TASK_QUEUE_NAME: taskflow:task-queue
+      JWT_SECRET: dev_only_change_me_in_prod
+      JWT_EXPIRES_IN: 7d
+      CLIENT_URL: http://localhost:8080
+      ADMIN_SIGNUP_CODE: let-me-in-admin
+    depends_on:
+      taskflow-mongo:
+        condition: service_healthy
+      taskflow-redis:
+        condition: service_healthy
+
+  taskflow-worker:
+    build:
+      context: ./worker
+    container_name: taskflow-worker
+    restart: unless-stopped
+    environment:
+      APP_NAME: TaskFlow
+      MONGODB_URI: mongodb://taskflow-mongo:27017/taskflow
+      REDIS_URL: redis://taskflow-redis:6379
+      TASK_QUEUE_NAME: taskflow:task-queue
+      BRPOP_TIMEOUT: 5
+    depends_on:
+      taskflow-mongo:
+        condition: service_healthy
+      taskflow-redis:
+        condition: service_healthy
+    # scale this up locally too if you want to see multiple workers race
+    # for jobs: docker compose up --build --scale taskflow-worker=3
+
+  taskflow-frontend:
+    build:
+      context: ./frontend
+    container_name: taskflow-frontend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - taskflow-backend
+
+volumes:
+  mongo_data:
+  redis_data:

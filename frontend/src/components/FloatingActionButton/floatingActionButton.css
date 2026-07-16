@@ -1,0 +1,82 @@
+/* floatingActionButton.css - scoped to .taskflow-fab-* */
+
+.taskflow-fab-wrapper {
+  position: fixed;
+  bottom: 28px;
+  left: 24px;
+  z-index: 95;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.taskflow-fab-main {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, var(--tf-primary), var(--tf-accent));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--tf-shadow-lg);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+.taskflow-fab-main:hover {
+  transform: scale(1.08);
+}
+
+.taskflow-fab-main-open {
+  transform: rotate(225deg);
+  background: linear-gradient(135deg, var(--tf-danger), var(--tf-primary));
+}
+
+.taskflow-fab-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: taskflow-fab-rise 0.2s ease;
+}
+
+@keyframes taskflow-fab-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.taskflow-fab-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--tf-border);
+  background: var(--tf-surface);
+  color: var(--tf-text);
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: var(--tf-shadow-sm);
+  white-space: nowrap;
+  transition: background var(--tf-transition), color var(--tf-transition), transform 0.15s ease;
+}
+
+.taskflow-fab-action:hover {
+  background: var(--tf-primary);
+  color: #fff;
+  transform: translateX(4px);
+}
+
+@media (max-width: 600px) {
+  .taskflow-fab-wrapper {
+    bottom: 20px;
+    left: 16px;
+  }
+}

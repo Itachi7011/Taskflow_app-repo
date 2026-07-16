@@ -1,0 +1,47 @@
+/* adminSettings.css - scoped to .taskflow-adminsettings-* */
+
+.taskflow-adminsettings h1 {
+  margin: 0 0 6px;
+  color: var(--tf-text);
+  font-size: 1.4rem;
+}
+
+.taskflow-adminsettings-subtitle {
+  margin: 0 0 22px;
+  color: var(--tf-text-muted);
+  font-size: 0.88rem;
+}
+
+.taskflow-adminsettings-card {
+  max-width: 500px;
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-lg);
+  padding: 8px 24px;
+}
+
+.taskflow-adminsettings-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--tf-border);
+  font-size: 0.9rem;
+}
+
+.taskflow-adminsettings-row:last-child {
+  border-bottom: none;
+}
+
+.taskflow-adminsettings-row span:first-child {
+  color: var(--tf-text-muted);
+}
+
+.taskflow-adminsettings-row span:last-child {
+  color: var(--tf-text);
+  font-weight: 600;
+}
+
+.taskflow-adminsettings-role {
+  text-transform: capitalize;
+  color: var(--tf-warning) !important;
+}

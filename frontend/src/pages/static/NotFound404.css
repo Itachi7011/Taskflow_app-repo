@@ -1,0 +1,93 @@
+/* NotFound404.css - scoped to .taskflow-404-* */
+
+.taskflow-404 {
+  position: relative;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px;
+  overflow: hidden;
+}
+
+.taskflow-404-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(109, 40, 217, 0.18), transparent 70%);
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.taskflow-404-code {
+  position: relative;
+  font-size: clamp(5rem, 14vw, 9rem);
+  font-weight: 800;
+  line-height: 1;
+  margin: 0;
+  background: linear-gradient(135deg, var(--tf-primary), var(--tf-accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  z-index: 1;
+}
+
+.taskflow-404 h1 {
+  position: relative;
+  z-index: 1;
+  color: var(--tf-text);
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  margin: 10px 0 12px;
+}
+
+.taskflow-404-desc {
+  position: relative;
+  z-index: 1;
+  color: var(--tf-text-muted);
+  max-width: 420px;
+  line-height: 1.6;
+  margin: 0 0 30px;
+}
+
+.taskflow-404-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.taskflow-404-btn-primary,
+.taskflow-404-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border-radius: var(--tf-radius-sm);
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: transform 0.15s ease, box-shadow var(--tf-transition);
+}
+
+.taskflow-404-btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--tf-primary), var(--tf-accent));
+}
+
+.taskflow-404-btn-secondary {
+  color: var(--tf-text);
+  background: var(--tf-surface-alt);
+  border: 1px solid var(--tf-border);
+}
+
+.taskflow-404-btn-primary:hover,
+.taskflow-404-btn-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--tf-shadow-md);
+}

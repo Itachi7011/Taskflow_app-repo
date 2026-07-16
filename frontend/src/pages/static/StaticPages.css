@@ -1,0 +1,520 @@
+/* StaticPages.css
+   Shared layout rules for TaskFlow's long-form content pages. Each page
+   still has its own uniquely prefixed classes below (taskflow-about-*,
+   taskflow-contact-*, etc) so nothing bleeds between pages, this file is
+   just one place to keep them since they all follow the same "hero +
+   sections + cta" shape.
+*/
+
+.taskflow-about,
+.taskflow-contact,
+.taskflow-services,
+.taskflow-terms,
+.taskflow-privacy,
+.taskflow-faqs,
+.taskflow-reportissue,
+.taskflow-comingsoon {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 50px 24px 90px;
+}
+
+/* ---------- About ---------- */
+.taskflow-about-hero {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.taskflow-about-hero h1 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--tf-text);
+  margin-bottom: 16px;
+}
+.taskflow-about-hero p {
+  color: var(--tf-text-muted);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+.taskflow-about-story,
+.taskflow-about-values,
+.taskflow-about-team {
+  margin-bottom: 50px;
+}
+.taskflow-about-story h2,
+.taskflow-about-values h2,
+.taskflow-about-team h2 {
+  color: var(--tf-text);
+  margin-bottom: 16px;
+}
+.taskflow-about-story p {
+  color: var(--tf-text-muted);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+.taskflow-about-values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.taskflow-about-value-card {
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-lg);
+  padding: 20px;
+}
+.taskflow-about-value-card svg {
+  color: var(--tf-primary);
+  margin-bottom: 10px;
+}
+.taskflow-about-value-card h3 {
+  margin: 0 0 8px;
+  color: var(--tf-text);
+  font-size: 0.98rem;
+}
+.taskflow-about-value-card p {
+  margin: 0;
+  color: var(--tf-text-muted);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+.taskflow-about-team {
+  text-align: center;
+}
+.taskflow-about-team svg {
+  color: var(--tf-accent);
+  margin-bottom: 10px;
+}
+.taskflow-about-team p {
+  color: var(--tf-text-muted);
+  line-height: 1.7;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.taskflow-about-cta,
+.taskflow-services-cta {
+  text-align: center;
+  background: var(--tf-surface-alt);
+  border-radius: var(--tf-radius-lg);
+  padding: 40px 20px;
+}
+.taskflow-about-cta h2,
+.taskflow-services-cta h2 {
+  margin: 0 0 20px;
+  color: var(--tf-text);
+}
+.taskflow-about-cta-btn,
+.taskflow-services-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--tf-primary), var(--tf-accent));
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: var(--tf-radius-sm);
+  font-weight: 600;
+  transition: transform 0.15s ease;
+}
+.taskflow-about-cta-btn:hover,
+.taskflow-services-cta-btn:hover {
+  transform: translateY(-3px);
+}
+
+/* ---------- Contact ---------- */
+.taskflow-contact-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.taskflow-contact-header h1 {
+  color: var(--tf-text);
+  margin-bottom: 10px;
+}
+.taskflow-contact-header p {
+  color: var(--tf-text-muted);
+}
+.taskflow-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+.taskflow-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-lg);
+  padding: 24px;
+}
+.taskflow-contact-form label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--tf-text);
+  display: block;
+  margin-bottom: 6px;
+}
+.taskflow-contact-form input,
+.taskflow-contact-form textarea {
+  width: 100%;
+  border: 1px solid var(--tf-border);
+  background: var(--tf-surface-alt);
+  border-radius: var(--tf-radius-sm);
+  padding: 10px 12px;
+  color: var(--tf-text);
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+.taskflow-contact-form button {
+  border: none;
+  border-radius: var(--tf-radius-sm);
+  padding: 12px;
+  background: linear-gradient(135deg, var(--tf-primary), var(--tf-accent));
+  color: #fff;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.taskflow-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.taskflow-contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-lg);
+  padding: 16px;
+}
+.taskflow-contact-info-item svg {
+  color: var(--tf-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.taskflow-contact-info-item h4 {
+  margin: 0 0 4px;
+  color: var(--tf-text);
+  font-size: 0.9rem;
+}
+.taskflow-contact-info-item p {
+  margin: 0;
+  color: var(--tf-text-muted);
+  font-size: 0.85rem;
+}
+
+/* ---------- Services ---------- */
+.taskflow-services-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.taskflow-services-header h1 {
+  color: var(--tf-text);
+}
+.taskflow-services-header p {
+  color: var(--tf-text-muted);
+}
+.taskflow-services-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+.taskflow-services-item {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 18px;
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-lg);
+  padding: 22px;
+}
+.taskflow-services-item-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--tf-radius-md);
+  background: var(--tf-surface-alt);
+  color: var(--tf-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.taskflow-services-item h3 {
+  margin: 0 0 6px;
+  color: var(--tf-text);
+}
+.taskflow-services-item p {
+  margin: 0 0 10px;
+  color: var(--tf-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+.taskflow-services-item ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--tf-text-muted);
+  font-size: 0.85rem;
+}
+
+/* ---------- Terms & Privacy ---------- */
+.taskflow-terms h1,
+.taskflow-privacy h1 {
+  color: var(--tf-text);
+  margin-bottom: 8px;
+}
+.taskflow-terms-updated,
+.taskflow-privacy-updated {
+  color: var(--tf-text-muted);
+  font-size: 0.82rem;
+  margin-bottom: 30px;
+}
+.taskflow-terms-section,
+.taskflow-privacy-section {
+  margin-bottom: 30px;
+}
+.taskflow-terms-section h2,
+.taskflow-privacy-section h2 {
+  color: var(--tf-text);
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+}
+.taskflow-terms-section p,
+.taskflow-privacy-section p,
+.taskflow-terms-section li,
+.taskflow-privacy-section li {
+  color: var(--tf-text-muted);
+  line-height: 1.7;
+  font-size: 0.9rem;
+}
+.taskflow-terms-section ul,
+.taskflow-privacy-section ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+/* ---------- FAQs ---------- */
+.taskflow-faqs-header {
+  text-align: center;
+  margin-bottom: 34px;
+}
+.taskflow-faqs-header h1 {
+  color: var(--tf-text);
+}
+.taskflow-faqs-header p {
+  color: var(--tf-text-muted);
+}
+.taskflow-faqs-category {
+  margin-bottom: 30px;
+}
+.taskflow-faqs-category h2 {
+  color: var(--tf-primary);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+.taskflow-faqs-item {
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-md);
+  margin-bottom: 10px;
+  overflow: hidden;
+  background: var(--tf-surface);
+}
+.taskflow-faqs-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 15px 18px;
+  color: var(--tf-text);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: left;
+}
+.taskflow-faqs-answer {
+  padding: 0 18px 16px;
+  color: var(--tf-text-muted);
+  font-size: 0.87rem;
+  line-height: 1.6;
+}
+.taskflow-faqs-contact-note {
+  text-align: center;
+  color: var(--tf-text-muted);
+  font-size: 0.88rem;
+  margin-top: 30px;
+}
+.taskflow-faqs-contact-note a {
+  color: var(--tf-primary);
+  font-weight: 600;
+}
+
+/* ---------- Report Issue ---------- */
+.taskflow-reportissue-header {
+  text-align: center;
+  margin-bottom: 34px;
+}
+.taskflow-reportissue-header h1 {
+  color: var(--tf-text);
+}
+.taskflow-reportissue-header p {
+  color: var(--tf-text-muted);
+}
+.taskflow-reportissue-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-lg);
+  padding: 26px;
+}
+.taskflow-reportissue-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--tf-text);
+  display: block;
+  margin-bottom: 6px;
+}
+.taskflow-reportissue-field input,
+.taskflow-reportissue-field select,
+.taskflow-reportissue-field textarea {
+  width: 100%;
+  border: 1px solid var(--tf-border);
+  background: var(--tf-surface-alt);
+  border-radius: var(--tf-radius-sm);
+  padding: 10px 12px;
+  color: var(--tf-text);
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+.taskflow-reportissue-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.taskflow-reportissue-submit {
+  border: none;
+  border-radius: var(--tf-radius-sm);
+  padding: 12px;
+  background: linear-gradient(135deg, var(--tf-primary), var(--tf-accent));
+  color: #fff;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.taskflow-reportissue-file-note {
+  font-size: 0.78rem;
+  color: var(--tf-text-muted);
+}
+
+/* ---------- Coming Soon ---------- */
+.taskflow-comingsoon-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.taskflow-comingsoon-header h1 {
+  color: var(--tf-text);
+}
+.taskflow-comingsoon-header p {
+  color: var(--tf-text-muted);
+}
+.taskflow-comingsoon-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 34px;
+}
+.taskflow-comingsoon-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-lg);
+  padding: 18px 20px;
+}
+.taskflow-comingsoon-item h3 {
+  margin: 0 0 6px;
+  color: var(--tf-text);
+  font-size: 0.95rem;
+}
+.taskflow-comingsoon-item p {
+  margin: 0;
+  color: var(--tf-text-muted);
+  font-size: 0.85rem;
+}
+.taskflow-comingsoon-status {
+  flex-shrink: 0;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.taskflow-comingsoon-status.planned {
+  background: rgba(100, 116, 139, 0.15);
+  color: var(--tf-text-muted);
+}
+.taskflow-comingsoon-status.in-progress {
+  background: rgba(6, 182, 212, 0.15);
+  color: var(--tf-accent);
+}
+.taskflow-comingsoon-notify {
+  text-align: center;
+  background: var(--tf-surface-alt);
+  border-radius: var(--tf-radius-lg);
+  padding: 34px 20px;
+}
+.taskflow-comingsoon-notify h2 {
+  margin: 0 0 16px;
+  color: var(--tf-text);
+}
+.taskflow-comingsoon-notify-form {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.taskflow-comingsoon-notify-form input {
+  border: 1px solid var(--tf-border);
+  background: var(--tf-surface);
+  border-radius: var(--tf-radius-sm);
+  padding: 10px 14px;
+  min-width: 240px;
+  color: var(--tf-text);
+}
+.taskflow-comingsoon-notify-form button {
+  border: none;
+  border-radius: var(--tf-radius-sm);
+  padding: 10px 20px;
+  background: linear-gradient(135deg, var(--tf-primary), var(--tf-accent));
+  color: #fff;
+  font-weight: 600;
+}
+
+@media (max-width: 700px) {
+  .taskflow-about-values-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .taskflow-contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .taskflow-services-item {
+    grid-template-columns: 1fr;
+  }
+  .taskflow-reportissue-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .taskflow-about-values-grid {
+    grid-template-columns: 1fr;
+  }
+}

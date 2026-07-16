@@ -1,0 +1,81 @@
+/* adminUsers.css - scoped to .taskflow-adminusers-* */
+
+.taskflow-adminusers h1 {
+  margin: 0 0 6px;
+  color: var(--tf-text);
+  font-size: 1.4rem;
+}
+
+.taskflow-adminusers-subtitle {
+  margin: 0 0 22px;
+  color: var(--tf-text-muted);
+  font-size: 0.88rem;
+}
+
+.taskflow-adminusers-table-wrap {
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-lg);
+  overflow-x: auto;
+}
+
+.taskflow-adminusers-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.taskflow-adminusers-table th {
+  text-align: left;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  color: var(--tf-text-muted);
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--tf-border);
+}
+
+.taskflow-adminusers-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--tf-border);
+  font-size: 0.87rem;
+  color: var(--tf-text);
+}
+
+.taskflow-adminusers-role {
+  text-transform: capitalize;
+  color: var(--tf-text-muted);
+}
+
+.taskflow-adminusers-badge {
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.taskflow-adminusers-badge.active {
+  background: rgba(22, 163, 74, 0.14);
+  color: var(--tf-success);
+}
+
+.taskflow-adminusers-badge.blocked {
+  background: rgba(220, 38, 38, 0.14);
+  color: var(--tf-danger);
+}
+
+.taskflow-adminusers-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--tf-border);
+  background: var(--tf-surface-alt);
+  color: var(--tf-text);
+  padding: 6px 12px;
+  border-radius: var(--tf-radius-sm);
+  font-size: 0.78rem;
+}
+
+.taskflow-adminusers-action-btn:hover {
+  border-color: var(--tf-warning);
+  color: var(--tf-warning);
+}
